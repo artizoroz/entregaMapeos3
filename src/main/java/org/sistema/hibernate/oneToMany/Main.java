@@ -1,6 +1,7 @@
 package org.sistema.hibernate.oneToMany;
 
 import org.hibernate.Session;
+import org.sistema.hibernate.oneToMany.dao.PersonDAO;
 import org.sistema.hibernate.oneToMany.models.Book;
 import org.sistema.hibernate.oneToMany.models.Person;
 
@@ -31,25 +32,20 @@ public class Main {
 		person2.addBook(book4);
 
 		/*
-		 * En la primer sesion guardamos las dos personas (los libros
-		 * correspondientes seran guardados en cascada
+		 * Guardamos las dos personas (los libros
+		 * correspondientes seran guardados en cascada)
 		 */
-		Session sesion = HibernateUtil.getSessionFactory().openSession();
-		sesion.beginTransaction();
-		sesion.persist(person1);
-		sesion.persist(person2);
-		sesion.getTransaction().commit();
-		sesion.close();
+		PersonDAO personDAO = new PersonDAO();
+		personDAO.insert(person1);
+		personDAO.insert(person2);
+
 
 		/*
-		 * En la segunda sesion eliminamos la person1 (los dos primeros libros
+		 * Eliminamos la person1 (los dos primeros libros
 		 * seran borrados en cascada)
 		 */
-		sesion = HibernateUtil.getSessionFactory().openSession();
-		sesion.beginTransaction();
-		sesion.delete(person1);
-		sesion.getTransaction().commit();
-		sesion.close();
+		personDAO.delete(person1);
+
 	}
 
 }

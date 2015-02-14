@@ -10,7 +10,7 @@
 			<generator class="identity" />
 		</id>
 		<property name="name" />
-		<list name="books" cascade="all-delete-orphan">
+		<list name="books" cascade="all">
 			<key column="idPerson" />
 			<index column="book_order" />
 			<one-to-many class="Book" />
