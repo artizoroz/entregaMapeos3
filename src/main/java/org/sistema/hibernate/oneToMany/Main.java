@@ -1,50 +1,50 @@
 package org.sistema.hibernate.oneToMany;
 
 import org.hibernate.Session;
-import org.sistema.hibernate.oneToMany.dao.PersonDAO;
-import org.sistema.hibernate.oneToMany.models.Book;
-import org.sistema.hibernate.oneToMany.models.Person;
+import org.sistema.hibernate.oneToMany.dao.FlightDAO;
+import org.sistema.hibernate.oneToMany.models.Passenger;
+import org.sistema.hibernate.oneToMany.models.Flight;
 
 public class Main {
 
 	public static void main(String[] args) {
 		/* Primero creamos una persona y la asociamos con dos libros */
-		Book book1 = new Book();
-		book1.setTitle("20000 leguas de viaje submarino");
-		Book book2 = new Book();
-		book2.setTitle("La maquina del tiempo");
-		Person person1 = new Person();
-		person1.setName("persona que se eliminara");
-		person1.addBook(book1);
-		person1.addBook(book2);
+		Passenger passenger1 = new Passenger();
+		passenger1.setName("passenger 1");
+		Passenger passenger2 = new Passenger();
+		passenger2.setName("passenger 2");
+		Flight flight1 = new Flight();
+		flight1.setName("flight 1");
+		flight1.addPassenger(passenger1);
+		flight1.addPassenger(passenger2);
 
 		/*
 		 * Creamos una segunda persona, que sera eliminada, y la asociamos con
 		 * otros dos libros
 		 */
-		Book book3 = new Book();
-		book3.setTitle("El ingenioso hidalgo don Quijote de la Mancha");
-		Book book4 = new Book();
-		book4.setTitle("La Galatea");
-		Person person2 = new Person();
-		person2.setName("Alex");
-		person2.addBook(book3);
-		person2.addBook(book4);
+		Passenger passenger3 = new Passenger();
+		passenger3.setName("passenger 3");
+		Passenger passenger4 = new Passenger();
+		passenger4.setName("passenger 4");
+		Flight flight2 = new Flight();
+		flight2.setName("flight 2");
+		flight2.addPassenger(passenger3);
+		flight2.addPassenger(passenger4);
 
 		/*
 		 * Guardamos las dos personas (los libros
 		 * correspondientes seran guardados en cascada)
 		 */
-		PersonDAO personDAO = new PersonDAO();
-		personDAO.insert(person1);
-		personDAO.insert(person2);
+		FlightDAO flightDAO = new FlightDAO();
+		flightDAO.insert(flight1);
+		flightDAO.insert(flight2);
 
 
 		/*
 		 * Eliminamos la person1 (los dos primeros libros
 		 * seran borrados en cascada)
 		 */
-		personDAO.delete(person1);
+		flightDAO.delete(flight1);
 
 	}
 

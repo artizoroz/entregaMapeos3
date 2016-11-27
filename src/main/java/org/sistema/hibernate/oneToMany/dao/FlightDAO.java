@@ -8,25 +8,25 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.sistema.hibernate.oneToMany.HibernateSession;
-import org.sistema.hibernate.oneToMany.models.Person;
+import org.sistema.hibernate.oneToMany.models.Flight;
 
 /**
  * implementation of personDAOInterface
  * @author Eugenia Pérez
  * @email eugenia_perez@cuatrovientos.org
  */
-public class PersonDAO implements PersonDAOInterface {
+public class FlightDAO implements FlightDAOInterface {
 
 	/* 
 	 * selects one person by Id
 	 * @param id
 	 * @return Person
 	 */
-	public Person selectById(Long id) {
+	public Flight selectById(Long id) {
 	    SessionFactory sessionFactory = HibernateSession.getSessionFactory();
 	    Session session = sessionFactory.openSession();
 	 
-	    Person person = (Person) session.get(Person.class, id);
+	    Flight person = (Flight) session.get(Flight.class, id);
 	    
 	    session.close();
 	    return person;
@@ -36,11 +36,11 @@ public class PersonDAO implements PersonDAOInterface {
 	 * retrieves all persons from db
 	 * @return List of persons
 	 */
-	public List<Person> selectAll() {
+	public List<Flight> selectAll() {
 	    SessionFactory sessionFactory = HibernateSession.getSessionFactory();
 	    Session session = sessionFactory.openSession();
 	 
-	    List<Person> persons = session.createQuery("from Person").list();
+	    List<Flight> persons = session.createQuery("from flights").list();
 	    
 	    session.close();
 	    return persons;
@@ -51,12 +51,12 @@ public class PersonDAO implements PersonDAOInterface {
 	 * person must come with the idcar set 
 	 * @param new person
 	 */
-	public void insert(Person person) {
+	public void insert(Flight flight) {
 	    SessionFactory sessionFactory = HibernateSession.getSessionFactory();
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
 	 
-	    session.persist(person);    
+	    session.persist(flight);    
 	    
 	    session.getTransaction().commit();	         
 	    session.close();
@@ -67,12 +67,12 @@ public class PersonDAO implements PersonDAOInterface {
 	 * updates person
 	 * @param person to update
 	 */
-	public void update(Person person) {
+	public void update(Flight flight) {
 	    SessionFactory sessionFactory = HibernateSession.getSessionFactory();
 		    Session session = sessionFactory.openSession();	 
 		    session.beginTransaction();
 		 
-		    session.merge(person); 
+		    session.merge(flight); 
 		    
 		    session.getTransaction().commit();		 
 		    session.close();
@@ -82,7 +82,7 @@ public class PersonDAO implements PersonDAOInterface {
 	 * delete given person
 	 * @param person to delete
 	 */
-	public void delete(Person person) {
+	public void delete(Flight person) {
 	    SessionFactory sessionFactory = HibernateSession.getSessionFactory();
 	    Session session = sessionFactory.openSession();	    
 	    session.beginTransaction();

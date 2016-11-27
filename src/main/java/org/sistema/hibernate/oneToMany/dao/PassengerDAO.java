@@ -8,25 +8,25 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.sistema.hibernate.oneToMany.HibernateSession;
-import org.sistema.hibernate.oneToMany.models.Book;
+import org.sistema.hibernate.oneToMany.models.Passenger;
 
 /**
  * implementation of BookDAOInterface
  * @author Eugenia Pérez
  * @email eugenia_perez@cuatrovientos.org
  */
-public class BookDAO implements BookDAOInterface {
+public class PassengerDAO implements PassengerDAOInterface {
 
 	/* 
 	 * selects one Book by Id
 	 * @param id
 	 * @return Book
 	 */
-	public Book selectById(Long id) {
+	public Passenger selectById(Long id) {
 	    SessionFactory sessionFactory = HibernateSession.getSessionFactory();
 	    Session session = sessionFactory.openSession();
 	 
-	    Book book = (Book) session.get(Book.class, id);
+	    Passenger book = (Passenger) session.get(Passenger.class, id);
 	    
 	    session.close();
 	    return book;
@@ -36,14 +36,14 @@ public class BookDAO implements BookDAOInterface {
 	 * retrieves all Books from db
 	 * @return List of Books
 	 */
-	public List<Book> selectAll() {
+	public List<Passenger> selectAll() {
 	    SessionFactory sessionFactory = HibernateSession.getSessionFactory();
 	    Session session = sessionFactory.openSession();
 	 
-	    List<Book> bookes = session.createQuery("from Book").list();
+	    List<Passenger> passengers = session.createQuery("from passengers").list();
 	    
 	    session.close();
-	    return bookes;
+	    return passengers;
 	}
 
 	/*
@@ -51,12 +51,12 @@ public class BookDAO implements BookDAOInterface {
 	 * retrieves generated id and sets to Book instance
 	 * @param new Book
 	 */
-	public void insert(Book book) {
+	public void insert(Passenger passenger) {
 	    SessionFactory sessionFactory = HibernateSession.getSessionFactory();
 	    Session session = sessionFactory.openSession();
 	    session.beginTransaction();
 	
-	    session.persist(book);
+	    session.persist(passenger);
 	         
 	    session.getTransaction().commit();
 	    session.close();
@@ -67,12 +67,12 @@ public class BookDAO implements BookDAOInterface {
 	 * updates Book
 	 * @param Book to update
 	 */
-	public void update(Book book) {
+	public void update(Passenger passenger) {
 	    SessionFactory sessionFactory = HibernateSession.getSessionFactory();
 		    Session session = sessionFactory.openSession();	 
 		    session.beginTransaction();
 		 
-		    session.merge(book);
+		    session.merge(passenger);
 		 
 		    session.getTransaction().commit();
 		    session.close();
@@ -82,12 +82,12 @@ public class BookDAO implements BookDAOInterface {
 	 * delete given Book
 	 * @param Book to delete
 	 */
-	public void delete(Book book) {
+	public void delete(Passenger passenger) {
 	    SessionFactory sessionFactory = HibernateSession.getSessionFactory();
 	    Session session = sessionFactory.openSession();	    
 	    session.beginTransaction();
 	    
-	    session.delete(book);
+	    session.delete(passenger);
 	 
 	    session.getTransaction().commit();
 	    session.close();
